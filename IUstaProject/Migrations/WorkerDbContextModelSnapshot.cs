@@ -45,6 +45,32 @@ namespace IUstaProject.Migrations
                     b.ToTable("Admins");
                 });
 
+            modelBuilder.Entity("IUstaProject.Models.Agreement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AgreementText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("WorkerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Agreements");
+                });
+
             modelBuilder.Entity("IUstaProject.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -106,20 +132,7 @@ namespace IUstaProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Workers");
-                });
-
-            modelBuilder.Entity("IUstaProject.Models.Worker", b =>
-                {
-                    b.HasOne("IUstaProject.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

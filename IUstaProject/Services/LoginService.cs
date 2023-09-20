@@ -67,7 +67,7 @@ namespace IUstaProject.Services
                             PasswordHash = user.PasswordHash,
                             PasswordSalt = user.PasswordSalt,
                             UserName = user.UserName,
-                            CategoryId = Guid.Parse("dbf918f8-add9-4d3e-a698-1eb0f6305502")
+                            CategoryId = Guid.Parse("c17259d6-3dc2-451c-b2b1-c84d877c07bf")
                         };
                         await _context.Workers.AddAsync(worker);
                         
