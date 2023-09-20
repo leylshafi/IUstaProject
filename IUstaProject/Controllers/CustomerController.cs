@@ -86,5 +86,37 @@ namespace IUstaProject.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+
+        [HttpPost("agreement")]
+        public IActionResult AgreeWithWorker([FromBody] AgreementRequest agreementRequest)
+        {
+            try
+            {
+                var customer = workerDbContext.Customers.FirstOrDefault(c => c.Id == agreementRequest.CustomerId);
+                if (customer == null)
+                    return NotFound($"Customer with ID {agreementRequest.CustomerId} not found");
+
+                var worker = workerDbContext.Workers.FirstOrDefault(w => w.Id == agreementRequest.WorkerId);
+                if (worker == null)
+                    return NotFound($"Worker with ID {agreementRequest.WorkerId} not found");
+
+                var agreement = new Agreement
+                {
+                    CustomerId = customer.Id,
+                    WorkerId = worker.Id,
+                    AgreementText = agreementRequest.AgreementText,
+                };
+
+                workerDbContext.Agreements.Add(agreement);
+                workerDbContext.SaveChanges();
+
+                return Ok("Agreement with customer successfully recorded");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
