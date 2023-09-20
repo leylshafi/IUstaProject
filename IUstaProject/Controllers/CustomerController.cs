@@ -51,9 +51,19 @@ namespace IUstaProject.Controllers
         }
 
         [HttpGet("get worker")]
-        public async Task<Worker> GetWorker(string id)
+        public  List<Worker> GetWorker(string categoryName)
         {
-            return await workerDbContext.Workers.FindAsync(id);
+            List<Worker>FoundedWorkers= new List<Worker>();
+            var categoriesFound = workerDbContext.Categories.Where(c => c.CategoryName.Contains(categoryName)).ToList();
+            foreach (var item in categoriesFound)
+            {
+                foreach (var worker in workerDbContext.Workers.ToList())
+                {
+                    if (worker.CategoryId == item.Id)
+                        FoundedWorkers.Add(worker);
+                }
+            }
+            return FoundedWorkers;
         }
     }
 }

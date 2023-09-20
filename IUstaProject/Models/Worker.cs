@@ -4,7 +4,6 @@ namespace IUstaProject.Models
 {
     public class Worker:User
     {
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+        public Guid CategoryId { get; set; }
     }
 }
