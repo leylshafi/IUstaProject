@@ -13,7 +13,7 @@ namespace IUstaProject.Services
         {
             this._context = context;
         }
-        public async Task<string> Login(AdminDto request)
+        public async Task<string> Login(UserDto request)
         {
             var user = _context.Admins.FirstOrDefault(U => U.UserName == request.UserName) ??
                 throw new Exception("Username or Password is wrong!");
@@ -24,7 +24,7 @@ namespace IUstaProject.Services
         }
 
 
-        public async Task<bool> Register(AdminDto request)
+        public async Task<bool> Register(UserDto request)
         {
             if (_context.Admins.Any(u => u.UserName == request.UserName))
                 throw new Exception("Username is already taken!");

@@ -5,7 +5,7 @@ namespace IUstaProject.Services
 {
     public interface ILoginRegisterService
     {
-        Task<bool> Register(AdminDto request);
-        Task<string> Login(AdminDto request);
+        Task<bool> Register(UserDto request);
+        Task<string> Login(UserDto request);
     }
 }

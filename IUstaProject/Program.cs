@@ -44,7 +44,6 @@ builder.Services.AddDbContext<WorkerDbContext>(op =>
     op.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 builder.Services.AddScoped<ILoginRegisterService, LoginRegisterService>();
-builder.Services.AddScoped<ILoginRegisterWorker, LoginWorker>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
