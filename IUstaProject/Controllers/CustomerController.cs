@@ -4,6 +4,7 @@ using IUstaProject.Models.Dtos;
 using IUstaProject.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace IUstaProject.Controllers
 {
@@ -64,6 +65,28 @@ namespace IUstaProject.Controllers
                 }
             }
             return FoundedWorkers;
+        }
+
+        [HttpGet("profile")]
+        public IActionResult GetProfile(Guid customerId)
+        {
+            try
+            {
+                var customer = workerDbContext.Customers.FirstOrDefault(c => c.Id == customerId);
+
+                var customerName = customer.UserName;
+
+                var profile = new
+                {
+                    CustomerName = customerName,
+                };
+
+                return Ok(profile);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
     }
 }

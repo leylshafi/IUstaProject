@@ -4,6 +4,7 @@ using IUstaProject.Models.Dtos;
 using IUstaProject.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace IUstaProject.Controllers
 {
@@ -108,6 +109,28 @@ namespace IUstaProject.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("profile")]
+        public IActionResult GetProfile(Guid workerId)
+        {
+            try
+            {
+                var worker = workerDbContext.Workers.FirstOrDefault(c => c.Id == workerId);
+
+                var workerName = worker.UserName;
+
+                var profile = new
+                {
+                    WorkerName = workerName,
+                };
+
+                return Ok(profile);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
     }

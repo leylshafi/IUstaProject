@@ -96,5 +96,32 @@ namespace IUstaProject.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
         }
+
+
+        [HttpGet("statistics")]
+        public IActionResult GetStatistics()
+        {
+            try
+            {
+                var customerCount = workerDbContext.Customers.Count();
+                var workerCount = workerDbContext.Workers.Count();
+                var categoryCount = workerDbContext.Categories.Count();
+
+                var statistics = new
+                {
+                    CustomerCount = customerCount,
+                    WorkerCount = workerCount,
+                    CategoryCount = categoryCount
+                };
+
+                return Ok(statistics);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
     }
 }
