@@ -73,9 +73,7 @@ namespace IUstaProject.Controllers
             try
             {
                 var customer = workerDbContext.Customers.FirstOrDefault(c => c.Id == customerId);
-
                 var customerName = customer.UserName;
-
                 var profile = new
                 {
                     CustomerName = customerName,
